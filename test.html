@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <script>
+      d3.select("body").selectAll("div.blah").data([1,2,3,4,5]).enter().append("div").attr("class","blah");
+      d3.select("body").selectAll("div.halb").data([6,7,8,9,10]).enter().append("div").attr("class","halb");
+      d3.selectAll("div").style("backgorund",function(d,i) {
+        console.log(d,i);
+      });
+      d3.select("body").selectAll("div.halb").data([11,12,13,14,15])
+      console.log(" ");
+      d3.selectAll("div").style("backgorund",function(d,i) {
+        console.log(d,i);
+      });
+      d3.select("body").html("<a href='123'>a</a>");
+    </script>
+  </body>
+</html>

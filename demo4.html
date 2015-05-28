@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/semantic-ui/0.9.5/css/semantic.min.css">
+    <script type="text/javascript" src="assets/semantic-ui/0.9.5/js/semantic.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <svg width="100%" height="100%" viewbox="0 0 1000 1000" preserveAspectRatio="xMidYMid">
+    </svg>
+    <script type="text/javascript">
+       var data = [3,1,4,1,5,9,2,6,5,3,5,8,9,7,9];
+       var c = data.map(function(d) { return {value: d}; });
+       var root = {children: c};
+       var nodes = d3.layout.pack().size([1000,1000]).nodes(root);
+       v = d3.select("svg").selectAll("circle").data(nodes); 
+       v.enter().append("circle");
+       d3.select("svg").selectAll("circle").attr({
+         cx: function(d,i) { return d.x; },
+         cy: function(d,i) { return d.y; },
+         r: function(d,i) { return d.r; },
+         fill: "none",
+         stroke: "#000",
+         "stroke-width": "5"
+       });
+
+    </script>
+  </body>
+</html>

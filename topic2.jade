@@ -1,0 +1,131 @@
+doctype html
+//- basic libraries: jquery(1.10.2), d3js(3.3.11), angularjs(1.2.3), bootstrap(3.0)/semantic-ui(0.9.3/0.9.5)
+- var usecdn = false
+- var useog = false
+- var lib = { jquery: true, d3js: true, angular: true, bootstrap: false, semantic: false }
+- var assets = "assets"
+- var thumbnail = "http://dummy.thumbnail"
+html(lang="en")
+  head(prefix="og: http://ogp.me/ns#")
+    meta(charset="utf-8")
+    title template
+    // libraries
+    include library.jade
+    // custom files
+    link(rel="stylesheet",type="text/css",href="index.css")
+    script(type="text/javascript",src="index.js")
+  body
+    #content.topic2
+      h2 example 1
+      svg.e1s(width="900px",height="250px",viewBox="0 0 900 250",preserveAspectRatio="xMidYMid",style="border: 1px solid #000")
+      script.
+        d3.json("topic2.json", function(data) {
+          var v1 = d3.select(".e1s").selectAll("circle.e1").data(data);
+          var radius = d3.scale.linear().domain([d3.min(data),d3.max(data)]).range([5,30]);
+          v1.exit().remove();
+          v1.enter().append("circle").attr("class","e1");
+          d3.select(".e1s").selectAll("circle.e1").attr({
+            cx: function(d,i) { return i * 60 + 20; },
+            cy: 125,
+            r: radius,
+            fill: "#000"
+          });
+        });
+      h2 example2
+      p
+        | make 20 ticks from 100 to 80 by d3.scale.linear
+      svg.e2s(width="900px",height="250px",viewBox="0 0 900 250",preserveAspectRatio="xMidYMid",style="border: 1px solid #000")
+      script.
+        d3.json("topic2.json", function(data) {
+          var map = d3.scale.linear().domain([d3.min(data), d3.max(data)]).range([100,800]);
+          ticks = map.ticks(20);
+          var v2 = d3.select(".e2s").selectAll("rect.e2").data(ticks);
+          v2.enter().append("rect").attr("class","e2");
+          d3.select(".e2s").selectAll("rect.e2").attr({
+            y: 150,
+            height: 10,
+            x: map,
+            width: 2,
+            fill: "#000"
+          });
+        });
+
+      h2 example3
+      p
+        | make 20 ticks from 100 to 80 by d3.scale.pow
+      svg.e3s(width="900px",height="250px",viewBox="0 0 900 250",preserveAspectRatio="xMidYMid",style="border: 1px solid #000")
+      script.
+        d3.json("topic2.json", function(data) {
+          var map3 = d3.scale.pow().exponent(3).domain([d3.min(data), d3.max(data)]).range([100,800]);
+          ticks = map3.ticks(20);
+          var v3 = d3.select(".e3s").selectAll("rect.e3").data(ticks);
+          v3.enter().append("rect").attr("class","e3");
+          d3.select(".e3s").selectAll("rect.e3").attr({
+            y: 150,
+            height: 10,
+            x: map3,
+            width: 2,
+            fill: "#000"
+          });
+        });
+
+      h2 example4
+      p
+        | make 20 ticks from 100 to 80 by d3.scale.log
+      svg.e4s(width="900px",height="250px",viewBox="0 0 900 250",preserveAspectRatio="xMidYMid",style="border: 1px solid #000")
+      script.
+        d3.json("topic2.json", function(data) {
+          var map4 = d3.scale.log().domain([d3.min(data), d3.max(data)]).range([100,800]);
+          ticks = map4.ticks(20);
+          var v4 = d3.select(".e4s").selectAll("rect.e4").data(ticks);
+          v4.enter().append("rect").attr("class","e4");
+          d3.select(".e4s").selectAll("rect.e4").attr({
+            y: 150,
+            height: 10,
+            x: map4,
+            width: 2,
+            fill: "#000"
+          });
+        });
+
+      h2 exercise
+      p
+        | draw following chart (pow scale in x,y axis with exponent 4) using 
+        a(href="topic2-2.json") topic2-2.json
+        |  . data range: (x,y), 0&#60;x&#60;100,  0&#60;y&#60;100
+        br
+        | color function: intepolate #090 ~ #f00 by 1~10
+      svg.e5s(width="900px",height="250px",viewBox="0 0 900 250",preserveAspectRatio="xMidYMid",style="border: 1px solid #000")
+      script.
+        d3.json("topic2-2.json", function(data) {
+          var map5 = d3.scale.pow().exponent(4).domain([0,100]).range([50,200]);
+          ticks = map5.ticks(20);
+          var v5x = d3.select(".e5s").selectAll("rect.e5x").data(ticks);
+          v5x.enter().append("rect").attr("class","e5x");
+          d3.select(".e5s").selectAll("rect.e5x").attr({
+            y: 215,
+            height: 10,
+            x: map5,
+            width: 2,
+            fill: "#000"
+          });
+          var v5y = d3.select(".e5s").selectAll("rect.e5y").data(ticks);
+          v5y.enter().append("rect").attr("class","e5y");
+          d3.select(".e5s").selectAll("rect.e5y").attr({
+            x: 25,
+            width: 10,
+            y: function(d) { return 250 - map5(d); },
+            height: 2,
+            fill: "#000"
+          });
+          var c5 = d3.scale.linear().domain([1,10]).range(["#090","#f00"]);
+          var v5d = d3.select(".e5s").selectAll("circle.e5d").data(data);
+          v5d.enter().append("circle").attr("class","e5d");
+          d3.select(".e5s").selectAll("circle.e5d").attr({
+            cx: function(d) { return map5(d[0]); },
+            cy: function(d) { return 250 - map5(d[1]); },
+            r: function(d) { return d[2]; },
+            fill: function(d) { return c5(d[2]); },
+          });
+
+        });

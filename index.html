@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/semantic-ui/0.9.5/css/semantic.min.css">
+    <script type="text/javascript" src="assets/semantic-ui/0.9.5/js/semantic.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <div id="content">
+      <h2>d3js course</h2><a href="https://speakerdeck.com/tkirby/d3js-for-0media">course slide</a> |  <a href="svg.html">common svg tags</a> |  <a href="topic1.html">topic 1</a> |  <a href="topic2.html">topic 2</a> |  <a href="topic3.html">topic 3</a> |  <a href="https://github.com/mbostock/d3/wiki/Gallery">d3js Gallery</a>
+      <hr><a href="d3.min.js">d3.min.js</a><br><a href="px.min.js">px.min.js</a> | <a href="citizen.px">citizen.px</a>
+      <h4>d3.min.js sample usage:</h4>
+      <pre>&#60;script type="text/javascript" src="d3.min.js"&#60;/script&#62;
+&#60;script type="text/javascript"&#62;
+  d3.json("data.json", function(data) {
+      min = d3.min(data);
+  });
+&#60;/script&#62;
+</pre>
+      <h4>px.min.js sample usage:</h4>
+      <pre>$.ajax("citizen.px").done(function(data) {
+  px = new Px(data);
+  value = px.metadata.VALUES["指標"];
+  range = px.metadata.VALUES["期間"];
+  county = px.metadata.VALUES["縣市"];
+  hash = {}
+  for(i=0;i&#60;county.length;i++) {
+    c = county[i].trim();
+    hash[c] = px.data[county.length * range.length * 2 + county.length * (range.length - 1) + i];
+    hash[c] = parseInt(hash[c]);
+  }
+});</pre>
+      <hr>
+      <h4>Data Source</h4>
+      <ul>
+        <li><a href="https://github.com/g0v/twstat">twstat </a></li>
+        <li><a href="https://github.com/ronnywang/">ronnywang's github</a></li>
+        <li><a href="http://data.g0v.tw">data.g0v.tw</a></li>
+        <li><a href="http://data.gov.tw">data.gov.tw</a></li>
+        <li>各大政府網站</li>
+      </ul>
+    </div>
+  </body>
+</html>

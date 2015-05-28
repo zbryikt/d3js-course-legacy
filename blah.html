@@ -1,0 +1,51 @@
+<body>
+<svg width="900px" height="500px" viewbox="0 0 900 500">
+<g id="arc" transform="translate(450 250)"></g>
+<g id="text" transform="translate(450 250)"></g>
+</svg>
+<script type="text/javascript" src="d3.min.js"></script>
+<script type="text/javascript">
+  d3.csv("aids.csv", function(data) {
+    age = {};
+    idx = null;
+    for(k in data[0]) {
+      if(k.length==3) idx = k;
+    }
+    data.map(function(d) {
+      key = d[idx];
+      if(!age[key]) age[key] = 1;
+      else age[key]++;
+    });
+    list = [];
+    for(k in age) {
+      list.push({name: k, value: age[k]});
+    }
+    nodes = d3.layout.partition().size([2*Math.PI,10000]).nodes(root={name: "AIDS",children:list});
+    root.y = 0;
+    root.dy = -12000;
+    c4 = d3.scale.category20();
+    arc = d3.svg.arc()
+      .startAngle(function(d) { return d.x; })
+      .endAngle(function(d) { return d.x + d.dx; })
+      .innerRadius(function(d) { return Math.sqrt(d.y); })
+      .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+    v4 = d3.select("svg g#arc").selectAll("path.e4").data(nodes);
+    v4.enter().append("path").attr("class","e4");
+    d3.select("svg g#arc").selectAll("path.e4").attr({
+      d: arc,
+      stroke: "#000",
+      fill: function(d) { return c4(d.value); }
+    });
+    text = d3.select("svg g#text").selectAll("text").data(nodes);
+    text.enter().append("text");
+    d3.select("svg g#text").selectAll("text").attr({
+      x: function(d,i) { return Math.sqrt(d.y + d.dy/2 + 6000 ) * Math.sin(d.x + d.dx/2); },
+      y: function(d,i) { return -Math.sqrt(d.y + d.dy/2 + 6000 ) * Math.cos(d.x + d.dx/2); },
+      "text-anchor": "middle",
+      "dominant-baseline": "central",
+      "fill": "#000",
+      "opacity": function(d) { if(d.dx < 0.2) { return 0; } else {return 1;}},
+    }).text(function(d) { return d.name; });
+
+  });
+</script>

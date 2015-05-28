@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="assets/semantic-ui/0.9.5/css/semantic.min.css">
+    <script type="text/javascript" src="assets/semantic-ui/0.9.5/js/semantic.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <svg width="100%" height="100%" viewbox="0 0 1000 1000" preserveAspectRatio="xMidYMid">
+    </svg>
+    <script type="text/javascript">
+      d3.json("topic2-2.json",function(data) {
+          vc = d3.select("svg").selectAll("circle").data(data);
+          vc.enter().append("circle");
+          sc = d3.scale.linear().domain([1,100]).range([200,800]);
+          radius = d3.scale.linear().domain([0,10]).range([5,20]);
+          color = d3.scale.linear().domain([0,10]).range(["#090","#f00"]);
+          d3.select('svg').selectAll("circle").attr({
+            cx: function(d,i) {return sc(d[0]); },
+            cy: function(d,i) {return sc(d[1]); },
+            r: function(d,i) {return radius(d[2]); },
+            fill: function(d,i) {return color(d[2]); }
+          });
+          ticks = sc.ticks(20);
+
+          vx = d3.select("svg").selectAll("rect.x-axis").data(ticks);
+          vx.enter().append("rect").attr("class", "x-axis");
+          d3.select("svg").selectAll("rect.x-axis").attr({
+            x: function(d,i) { return sc(d); },
+            y: 810,
+            width: 2,
+            height: 20,
+            fill: "#000"
+          });
+
+          vy = d3.select("svg").selectAll("rect.y-axis").data(ticks);
+          vy.enter().append("rect").attr("class", "y-axis");
+          d3.select("svg").selectAll("rect.y-axis").attr({
+            x: 165,
+            y: function(d,i) { return 1000 - sc(d); },
+            height: 2,
+            width: 20,
+            fill: "#000"
+          });
+      });
+    </script>
+  </body>
+</html>
+

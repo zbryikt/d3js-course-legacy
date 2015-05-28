@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <div id="topic1">
+      <h2>example 1</h2>
+      <div class="e1">hello </div>
+      <div class="e1">world </div>
+      <div class="e1">! </div>
+      <script>
+        d3.select("body").selectAll("div.e1").style({
+          background: function(d,i) { 
+            return "rgba("+(i*85)+",128,192,1)";
+          },
+        });
+        
+      </script>
+      <h2>example 2</h2>
+      <div class="e2">hello </div>
+      <div class="e2">world </div>
+      <div class="e2">! </div>
+      <script>
+        d3.select("body").selectAll("div.e2").data(["#f00","#f90","#ff0"]).style({
+          background: function(d,i) { 
+            return d;
+          },
+        });
+        
+      </script>
+      <h2>example 3</h2>
+      <div class="e3s"></div>
+      <script>
+        var v3 = d3.select(".e3s").selectAll("div.e3").data(["#f00","#f90","#ff0"]);
+        v3.exit().remove();
+        v3.enter().append("div").attr("class","e3");
+        d3.select(".e3s").selectAll("div.e3").style({
+          background: function(d,i) { 
+            return d;
+          },
+        }).text(function(d) { return d;});
+        
+      </script>
+      <h2>exercise</h2>
+      <p>draw following circles with radius in following data:<br>[3,1,4,1,5,9,2,6,5,3,5,8,9,7,9]</p>
+      <svg width="900px" height="250px" viewBox="0 0 900 250" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e4s"></svg>
+      <script>
+        var v4 = d3.select(".e4s").selectAll("circle.e4").data([3,1,4,1,5,9,2,6,5,3,5,8,9,7,9]);
+        v4.exit().remove();
+        v4.enter().append("circle").attr("class","e4");
+        d3.select(".e4s").selectAll("circle.e4").attr({
+          cx: function(d,i) { return i * 60 + 10; },
+          cy: 125,
+          r: function(d,i) { return d * 3; },
+          fill: "#000"
+        });
+        
+      </script>
+    </div>
+  </body>
+</html>

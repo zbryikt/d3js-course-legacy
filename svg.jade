@@ -1,0 +1,120 @@
+doctype html
+//- basic libraries: jquery(1.10.2), d3js(3.3.11), angularjs(1.2.3), bootstrap(3.0)/semantic-ui(0.9.3/0.9.5)
+- var usecdn = false
+- var useog = false
+- var lib = { jquery: true, d3js: true, angular: true, bootstrap: false, semantic: false }
+- var assets = "assets"
+- var thumbnail = "http://dummy.thumbnail"
+html(lang="en")
+  head(prefix="og: http://ogp.me/ns#")
+    meta(charset="utf-8")
+    title template
+    // libraries
+    include library.jade
+    // custom files
+    link(rel="stylesheet",type="text/css",href="index.css")
+    script(type="text/javascript",src="index.js")
+  body
+    #content
+      h2 Common SVG elements
+      p
+        | &#60;svg width="100px" height="100px" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid"&#62;&#60;/svg&#62;
+      svg(width="100px",height="200px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        circle(cx="100",cy="100",r="50",fill="#000")
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        circle(cx="100",cy="100",r="50",fill="#000")
+      svg(width="200px",height="200px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        circle(cx="100",cy="100",r="50",fill="#000")
+      p
+        | &#60;circle cx="100" cy="100" r="50" fill="#f99" stroke="#000" stroke-width="2" stroke-dasharray="5 5"/&#62;
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        circle(cx="100",cy="100",r="50",fill="#f99",stroke="#000",stroke-width="2",stroke-dasharray="5 5")
+      p
+        | &#60;ellipse cx="100" cy="100" rx="50" ry="20" fill="#f99" stroke="#000" stroke-width="2" stroke-dasharray="5 5"/&#62;
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        ellipse(cx="100",cy="100",rx="50",ry="20",fill="#f99",stroke="#000",stroke-width="2",stroke-dasharray="5 5")
+      p
+        | &#60;rect x="50" y="50" width="100" height="100" fill="#f99" stroke="#000" stroke-width="2" stroke-dasharray="5 5"/&#62;
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        rect(x="50",y="50",width="100",height="100",fill="#f99",stroke="#000",stroke-width="2",stroke-dasharray="5 5")
+      p
+        | &#60;line x1="50" y1="50" x2="150" y2="150" stroke="#000" stroke-width="2" stroke-dasharray="5 5"/&#62;
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        line(x1="50",y1="50",x2="150",y2="150",stroke="#000",stroke-width="2",stroke-dasharray="5 5")
+      p
+        | &#60;text x="100" y="100" fill="#f00" stroke="#000" font-size="50" text-anchor="middle"&#62; hello &#60;/text&#62;
+        br
+        | text-anchor: start / middle / end
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        text(x="100",y="100",fill="#f00",stroke="#000",stroke-width="2",font-size="50",text-anchor="middle",textlength="200") hello
+      p
+        | &#60;g&#62; ...
+        br
+        | &#60;g transform="scale(1.2 1.0) rotate(30 50 50) translate(10 0)&#62; ...
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        g(transform="scale(1.2 1.0) rotate(30 50 50) translate(10 0)")
+          rect(x="50",y="50",width="100",height="50",fill="#000")
+      h3 Advanced Elements
+      //-svg(width="200px",height="100px",viewBox="0 0 100 100",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        path(d="M30,30A30,50,-45,0,0,70,70",fill="#f00",stroke="#00f",stroke-width="1")
+      p
+        | &#60;path d="..."&#62;
+      svg(width="200px",height="100px",viewBox="0 0 100 100",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        path(d="M90,30.2c0-11-9-20.1-20-20.1s-20,9.1-20,20.2c0,0.2,0-0.3,0,0.7H50c0-1,0-0.6,0-0.8c0-11-9-20.1-20-20.1s-20,9.1-20,20.2 c0,0.2,0-0.3,0,0.7h0c0.3,20,30,39.5,40,55c10-15.5,39.7-35,40-55h0C90,30,90,30.4,90,30.2z",fill="#f00")
+      p
+        | &#60;image width="100" height="100" xlink:href="demo.png"&#62;
+      svg(width="200px",height="100px",viewBox="0 0 100 100",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        image(width="100",height="100",xlink:href="demo.png")
+      p
+        | &#60;defs&#62;
+        br
+        | &#60;linearGradient id="gradient1" x1="0" x2="1" y1="0" y2="1"&#62;
+        br
+        | &#60;stop offset="0%" stop-color="#000"/&#62;
+        br
+        | &#60;stop offset="10%" stop-color="#f00"/&#62;
+        br
+        | &#60;/defs&#62;
+        br
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        defs
+          linearGradient#gradient1(x1="0",x2="1",y1="0",y2="1")
+            stop(offset="0%",stop-color="#000")
+            stop(offset="100%",stop-color="#f00")
+        rect(x="50",y="50",width="100",height="100",fill="url(#gradient1)")
+      p
+        | fill with image
+        br
+        | &#60;defs&#62;
+        br
+        |   &#60;pattern id="pattern" x="0" y="0" width="30" height="20" patternUnits="userSpaceOnUse" patternTransform="rotate(30 10 10)"&#62;
+        br
+        |     &#60;image x="0" y="0" width="20" height="20" xlink:href="demo.png"/&#62;
+        br
+        |   &#60;/pattern&#62;
+        br
+        | &#60;/defs&#62;
+        br
+
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        defs
+          pattern#pattern(x="0",y="0",width="30",height="20",patternUnits="userSpaceOnUse",patternTransform="rotate(30 10 10)")
+            image(x="0",y="0",width="20",height="20",xlink:href="demo.png")
+        rect(x="50",y="50",width="100",height="100",fill="url(#pattern)",stroke="#000")
+      p
+        | animation
+        br
+        | &#60;animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="1s" repeatCount="indefinite"/&#62;
+        br
+        | &#60;animate attributeName="..." from="..." to="..." dur="1s" repeatCount="indefinite"/&#62;
+
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        rect(x="50",y="50",width="100",height="100",fill="#f99",stroke="#000",stroke-width="2",stroke-dasharray="5 5")
+          animateTransform(attributeName="transform",type="rotate",from="0 100 100",to="360 100 100",dur="1s",repeatCount="indefinite")
+          animate(attributeName="width",from="100",to="10",dur="1s",repeatCount="indefinite")
+      p
+        h2 exercise - draw a smiley face
+      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+        ellipse(cx="50",cy="50",rx="10",ry="15",fill="#f00")
+        ellipse(cx="150",cy="50",rx="10",ry="15",fill="#f00")
+        path(d="M60 100C50 150 150 150 140 100",fill="#f00",stroke="#f00",stroke-width="5px")

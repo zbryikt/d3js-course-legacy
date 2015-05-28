@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head prefix="og: http://ogp.me/ns#">
+    <meta charset="utf-8">
+    <title>template</title>
+    <!-- libraries-->
+    <script type="text/javascript" src="assets/jquery/1.10.2/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/d3js/3.3.11/d3.v3.min.js"></script>
+    <script type="text/javascript" src="assets/angular/1.2.3/angular.min.js"></script>
+    <!-- custom files-->
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <script type="text/javascript" src="index.js"></script>
+  </head>
+  <body>
+    <div id="content" class="topic3">
+      <h2>example 1</h2>
+      <svg width="900px" height="500px" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e1s"></svg>
+      <script>
+        d3.json("topic2.json", function(data) {
+          root = {children: data.map(function(d) { return {value: d};})};
+          nodes = d3.layout.pack().size([900,500]).nodes(root);
+          v1 = d3.select(".e1s").selectAll("circle.e1").data(nodes);
+          v1.enter().append("circle").attr("class","e1");
+          d3.select(".e1s").selectAll("circle.e1").attr({
+            cx: function(d) { return d.x; },
+            cy: function(d) { return d.y; },
+            r:  function(d) { return d.r; },
+            stroke: "#000",
+            fill: "none"
+          });
+        });
+        
+      </script>
+      <h2>example 2</h2>
+      <svg width="900px" height="500px" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e2s"></svg>
+      <script>
+        d3.json("topic2.json", function(data) {
+          root = {children: data.map(function(d) { return {value: d};})};
+          nodes = d3.layout.pack().sort(function(a,b){return b.value-a.value;}).padding(25).size([900,500]).nodes(root);
+          links = d3.layout.pack().links(nodes);
+          v2 = d3.select(".e2s").selectAll("circle.e2").data(nodes);
+          v2.enter().append("circle").attr("class","e2");
+          d3.select(".e2s").selectAll("circle.e2").attr({
+            cx: function(d) { return d.x; },
+            cy: function(d) { return d.y; },
+            r:  function(d) { return d.r; },
+            stroke: "#000",
+            fill: "none"
+          });
+        });
+        
+      </script>
+      <h2>example 3</h2>
+      <svg width="900px" height="500px" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e3s"></svg>
+      <script>
+        d3.json("topic2.json", function(data) {
+          root = {children: data.map(function(d) { return {value: d};})};
+          nodes = d3.layout.partition().size([900,500]).nodes(root);
+          v3 = d3.select(".e3s").selectAll("rect.e3").data(nodes);
+          v3.enter().append("rect").attr("class","e3");
+          d3.select(".e3s").selectAll("rect.e3").attr({
+            x: function(d) { return d.x; },
+            y: function(d) { return d.y; },
+            width: function(d) { return d.dx; },
+            height: function(d) { return d.dy; },
+            stroke: "#000",
+            fill: "none"
+          });
+        });
+        
+      </script>
+      <h2>example 4</h2>
+      <svg width="900px" height="500px" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e4s">
+        <g transform="translate(450 250)"></g>
+      </svg>
+      <script>
+        d3.json("topic2.json", function(data) {
+          root = {children: data.map(function(d) { return {value: d};})};
+          nodes = d3.layout.partition().size([2*Math.PI,10000]).nodes(root);
+          c4 = d3.scale.category20();
+          arc = d3.svg.arc()
+            .startAngle(function(d) { return d.x; })
+            .endAngle(function(d) { return d.x + d.dx; })
+            .innerRadius(function(d) { return Math.sqrt(d.y); })
+            .outerRadius(function(d) { return Math.sqrt(d.y + d.dy); });
+          v4 = d3.select(".e4s g").selectAll("path.e4").data(nodes);
+          v4.enter().append("path").attr("class","e4");
+          d3.select(".e4s g").selectAll("path.e4").attr({
+            d: arc,
+            stroke: "#000",
+            fill: function(d) { return c4(d.value); }
+          });
+        });
+        
+      </script>
+      <h2>example 5</h2>
+      <svg width="900px" height="500px" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e5s"></svg>
+      <script>
+        d3.json("topic2.json", function(data) {
+          nodes = data.map(function(d) { return {value: d};});
+          force = d3.layout.force().size([900,500]).charge(function(d) { return d.value * -10;}).nodes(nodes);
+          c5 = d3.scale.category20();
+          v5 = d3.select(".e5s").selectAll("circle.e5").data(nodes);
+          v5.enter().append("circle").attr("class","e5");
+          force.start();
+          force.on("tick", function() {
+            d3.select(".e5s").selectAll("circle.e5").attr({
+              cx: function(d) { return d.x; },
+              cy: function(d) { return d.y; },
+              r: function(d) { return d.value * 3; },
+              fill: function(d) { return c5(d.value); }
+            });
+          });
+        });
+        
+      </script>
+      <h2>example 6</h2>
+      <svg width="900px" height="500px" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e6s">
+        <g transform="translate(50 50)"></g>
+      </svg>
+      <script>
+        d3.json("topic3.json", function(data) {
+          cluster = d3.layout.cluster().size([800, 400]);
+          nodes = cluster.nodes(data);
+          links = cluster.links(nodes);
+          l6 = d3.svg.diagonal();
+          c6 = d3.scale.category20();
+          
+          v6 = d3.select(".e6s g").selectAll("circle.e6").data(nodes);
+          v6.enter().append("circle").attr("class","e6");
+          d3.select(".e6s g").selectAll("circle.e6").attr({
+            cx: function(d) { return d.x; },
+            cy: function(d) { return d.y; },
+            r: "5px",
+            stroke: "#000",
+            fill: function(d) { return c6(d.value); }
+          });
+          
+          v6 = d3.select(".e6s g").selectAll("text.e6").data(nodes);
+          v6.enter().append("text").attr("class","e6");
+          d3.select(".e6s g").selectAll("text.e6").attr({
+            x: function(d) { return d.x; },
+            y: function(d) { return d.y + 16; },
+            fill: "#000",
+            "text-anchor": "middle",
+            "dominant-baseline": "central",
+          }).text(function(d) { return d.name; });
+          
+          v6 = d3.select(".e6s g").selectAll("path.e6").data(links);
+          v6.enter().append("path").attr("class","e6");
+          d3.select(".e6s g").selectAll("path.e6").attr({
+            stroke: "#000",
+            fill: "none",
+            d: function(d) { return l6(d); }
+          });
+          
+        });
+        
+      </script>
+      <h2>example 7</h2>
+      <svg width="900px" height="500px" viewBox="0 0 900 500" preserveAspectRatio="xMidYMid" style="border: 1px solid #000" class="e7s">
+        <g transform="translate(450 250)"></g>
+      </svg>
+      <script>
+        d3.json("topic3.json", function(data) {
+          cluster = d3.layout.cluster().size([2*Math.PI, 200]);
+          nodes = cluster.nodes(data);
+          links = cluster.links(nodes);
+          l7 = d3.svg.diagonal().projection(function(d) {
+            return [d.y * Math.cos(d.x), d.y * Math.sin(d.x)];
+          });
+          c7 = d3.scale.category20();
+          
+          v7 = d3.select(".e7s g").selectAll("circle.e7").data(nodes);
+          v7.enter().append("circle").attr("class","e7");
+          d3.select(".e7s g").selectAll("circle.e7").attr({
+            cx: function(d) { return d.y * Math.cos(d.x); },
+            cy: function(d) { return d.y * Math.sin(d.x); },
+            r: "5px",
+            stroke: "#000",
+            fill: function(d) { return c7(d.value); }
+          });
+          
+          v7 = d3.select(".e7s g").selectAll("text.e7").data(nodes);
+          v7.enter().append("text").attr("class","e7");
+          d3.select(".e7s g").selectAll("text.e7").attr({
+            x: function(d) { return d.y * Math.cos(d.x); },
+            y: function(d) { return d.y * Math.sin(d.x) + 20; },
+            transform: function(d) { return "rotate("+((4.71 + d.x)*180/Math.PI)+" "+(d.y * Math.cos(d.x))+" "+(d.y * Math.sin(d.x))+")"; },
+            fill: "#000",
+            "text-anchor": "middle",
+            "dominant-baseline": "central",
+          }).text(function(d) { return d.name; });
+          
+          v7 = d3.select(".e7s g").selectAll("path.e7").data(links);
+          v7.enter().append("path").attr("class","e7");
+          d3.select(".e7s g").selectAll("path.e7").attr({
+            stroke: "#000",
+            fill: "none",
+            d: function(d) { return l7(d); }
+          });
+          
+        });
+        
+        
+      </script>
+      <h2>exercise</h2>
+      <p>use <a href="topic2.json">topic2.json</a> to build following chart</p><img src="topic3-exercise.png">
+    </div>
+  </body>
+</html>
