@@ -112,9 +112,17 @@ html(lang="en")
         rect(x="50",y="50",width="100",height="100",fill="#f99",stroke="#000",stroke-width="2",stroke-dasharray="5 5")
           animateTransform(attributeName="transform",type="rotate",from="0 100 100",to="360 100 100",dur="1s",repeatCount="indefinite")
           animate(attributeName="width",from="100",to="10",dur="1s",repeatCount="indefinite")
+      //-
+        p
+          h2 exercise - draw a smiley face
+        svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
+          ellipse(cx="50",cy="50",rx="10",ry="15",fill="#f00")
+          ellipse(cx="150",cy="50",rx="10",ry="15",fill="#f00")
+          path(d="M60 100C50 150 150 150 140 100",fill="#f00",stroke="#f00",stroke-width="5px")
+
+
       p
-        h2 exercise - draw a smiley face
-      svg(width="200px",height="100px",viewBox="0 0 200 200",preserveAspectRatio="xMidYMid",style="border:1px solid #000")
-        ellipse(cx="50",cy="50",rx="10",ry="15",fill="#f00")
-        ellipse(cx="150",cy="50",rx="10",ry="15",fill="#f00")
-        path(d="M60 100C50 150 150 150 140 100",fill="#f00",stroke="#f00",stroke-width="5px")
+        h2 exercise - draw a rotating clover
+      svg(width="200px",height="200px",viewBox="0 0 100 100")
+        path(d="M40 50A10 10 0 1 1 50 40a10 10 0 1 1 10 10a10 10 0 1 1 -10 10a10 10 0 1 1 -10 -10",stroke="black",stroke-width="3",fill="#f00")
+          animateTransform(attributeName="transform",type="rotate",from="0,50,50",to="360,50,50",dur="1s",repeatCount="indefinite")

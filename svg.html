@@ -86,12 +86,12 @@
         </rect>
       </svg>
       <p>
-        <h2>exercise - draw a smiley face</h2>
+        <h2>exercise - draw a rotating clover</h2>
       </p>
-      <svg width="200px" height="100px" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid" style="border:1px solid #000">
-        <ellipse cx="50" cy="50" rx="10" ry="15" fill="#f00"></ellipse>
-        <ellipse cx="150" cy="50" rx="10" ry="15" fill="#f00"></ellipse>
-        <path d="M60 100C50 150 150 150 140 100" fill="#f00" stroke="#f00" stroke-width="5px"></path>
+      <svg width="200px" height="200px" viewBox="0 0 100 100">
+        <path d="M40 50A10 10 0 1 1 50 40a10 10 0 1 1 10 10a10 10 0 1 1 -10 10a10 10 0 1 1 -10 -10" stroke="black" stroke-width="3" fill="#f00">
+          <animateTransform attributeName="transform" type="rotate" from="0,50,50" to="360,50,50" dur="1s" repeatCount="indefinite"></animateTransform>
+        </path>
       </svg>
     </div>
   </body>
